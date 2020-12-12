@@ -6,10 +6,12 @@ with open('12.txt', 'r') as f:
 
 lines = text.split('\n')
 
+# we use imaginery numbers, where East/West is the real axis and North/South the complex
 coords = 0 + 0j
 direction = 1 + 0j
 waypoint = 10 + 1j
 
+# now the waypoint is moving
 for line in lines:
     if line.startswith('S'):
         current_line = int(line.strip('S'))
