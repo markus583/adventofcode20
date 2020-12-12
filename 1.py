@@ -1,12 +1,9 @@
 from  itertools import combinations
-import csv
 
-with open('input.csv', newline='') as f:
-    reader = csv.reader(f)
-    data = list(reader)
+with open('data/1.txt', newline='') as f:
+    text = f.read()
 
-
-data[0][0] = '2008'
+data = text.split('\r\n')
 all_feature_pairs = list(combinations(data, 2))
 correct_answer = []
 for (one, two) in all_feature_pairs:
