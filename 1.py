@@ -1,4 +1,4 @@
-from  itertools import combinations
+from itertools import combinations
 
 with open('data/1.txt', 'r') as f:
     text = f.read()
