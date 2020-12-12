@@ -1,7 +1,7 @@
 import math
 import numpy as np
 
-with open('12.txt', 'r') as f:
+with open('data/12.txt', 'r') as f:
     text = f.read()
 
 lines = text.split('\n')

@@ -139,7 +139,7 @@ def __get_next_state__(state) -> np.ndarray:
 
 
 if __name__ == '__main__':
-    with open('11_2.txt', 'r') as f:
+    with open('data/11_2.txt', 'r') as f:
         text = f.read()
 
 

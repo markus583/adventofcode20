@@ -1,7 +1,7 @@
 import numpy as np
 import itertools
 
-with open('5.csv', 'r') as f:
+with open('data/5.csv', 'r') as f:
     text = f.read()
 
 binary = text.replace('B', '1')

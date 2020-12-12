@@ -1,19 +1,20 @@
 from itertools import product
 import numpy as np
 
-with open('9.txt', 'r') as f:
+with open('data/9.txt', 'r') as f:
     text = f.read()
 
-all_numbers = text.split('\n')
-numbers = all_numbers[25:]
+preamble = 25
+all_numbers = [int(number) for number in text.split('\n')]
+numbers = all_numbers[preamble:]
 
 for index, number in enumerate(numbers):
     success = False
-    combinations = list(product(all_numbers[:index+25], all_numbers[:index+25]))
+    combinations = list(product(all_numbers[index:index+preamble], all_numbers[index:index+preamble]))
     for (n1, n2) in combinations:
         if n1 == n2:
             continue
-        if int(number) == int(n1) + int(n2):
+        if number == n1 + n2:
             success = True
             break
     if not success:
@@ -23,18 +24,17 @@ for index, number in enumerate(numbers):
         break
 
 
-for index, number in enumerate(numbers):
+for index, number2 in enumerate(all_numbers):
     success = False
-    higher_numbers = numbers[index+1:]
-    var = int(number)
-    list = [number]
+    higher_numbers = all_numbers[index+1:]
+    var = number2
+    list = [number2]
     for higher_number in higher_numbers:
-        var += int(higher_number)
+        var += higher_number
         list.append(higher_number)
         if var > bad_number:
             break
         if var == bad_number:
-            list = [int(element) for element in list]
             np_list = np.asarray(list, dtype=np.int64)
             lowest = np.min(np_list)
             highest = np.max(np_list)

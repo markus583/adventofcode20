@@ -1,15 +1,13 @@
 import numpy as np
 from functools import lru_cache
-from collections import Counter
 
-with open('10.txt', 'r') as f:
+with open('data/10.txt', 'r') as f:
     text = f.read()
 
 numbers = [int(line) for line in text.split('\n')]
 numbers.append(0)
 numbers.sort()
 counter = np.zeros(shape=3, dtype=np.int64)
-print(numbers)
 
 for index, number in enumerate(numbers):
     if number == numbers[-1]:

@@ -1,7 +1,7 @@
 import copy
 
 
-with open('8.csv', 'r') as f:
+with open('data/8_2.csv', 'r') as f:
     text = f.read()
 
 print(text)

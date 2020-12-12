@@ -1,6 +1,6 @@
 import re
 
-with open('4.csv', 'r') as f:
+with open('data/4.csv', 'r') as f:
     text = f.read()
 
 text = text.split('\n\n')

@@ -1,6 +1,6 @@
 import re
 
-with open('2.csv', 'r') as f:
+with open('data/3.csv', 'r') as f:
     text = f.read()
 
 print(text)
