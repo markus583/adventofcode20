@@ -1,5 +1,6 @@
 from sympy import symbols, solve, Eq
 import numpy as np
+from multiprocessing import Pool
 
 
 def processing(data, retain_x=False):
@@ -22,6 +23,7 @@ def get_times(timestamp, id_list):
     return first_arrival
 
 
+# @jit
 def loop(buses, timestamp=0):
     # id_list = [number for number in buses if number != 'x']
     # choose lowest where lowest * timestamp >= greatest element
@@ -30,21 +32,21 @@ def loop(buses, timestamp=0):
     while True:
         time_counter = 0
         unordered_list = [timestamp]
+        sorted_list = []
         for index, bus in enumerate(buses):
             if index == 0:
                 time_counter += 1
+                sorted_list.append(timestamp + index)
                 continue
             if bus != 'x':
+                sorted_list.append(timestamp + index)
                 timestamp_2 = timestamp
                 equation = Eq(bus * x, timestamp_2)
                 current_time = int((solve(equation)[0] + 0.5)) * bus
                 unordered_list.append(current_time)
+                if unordered_list[-1] != sorted_list[-1]:
+                    break
             time_counter += 1
-        sorted_list = []
-        for index, element in enumerate(buses):
-            if element != 'x':
-                sorted_list.append(timestamp + index)
-
         if sorted_list == unordered_list:
             return timestamp, unordered_list
         timestamp += lowest
