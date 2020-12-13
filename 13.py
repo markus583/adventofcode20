@@ -1,6 +1,5 @@
 from sympy import symbols, solve, Eq
 import numpy as np
-from multiprocessing import Pool
 
 
 def processing(data, retain_x=False):
@@ -23,10 +22,7 @@ def get_times(timestamp, id_list):
     return first_arrival
 
 
-# @jit
-def loop(buses, timestamp=100000000000004):
-    # id_list = [number for number in buses if number != 'x']
-    # choose lowest where lowest * timestamp >= greatest element
+def loop(buses, timestamp=0):
     lowest = buses[0]
     x = symbols('x')
     while True:
@@ -44,7 +40,7 @@ def loop(buses, timestamp=100000000000004):
                 equation = Eq(bus * x, timestamp_2)
                 current_time = int((solve(equation)[0] + 0.5)) * bus
                 unordered_list.append(current_time)
-                if unordered_list[-1] != sorted_list[-1]:
+                if unordered_list[-1] > unordered_list[-2]:
                     break
             time_counter += 1
         if sorted_list == unordered_list:
@@ -55,6 +51,7 @@ def loop(buses, timestamp=100000000000004):
 
 
 # part 1
+# my solution is 3865
 if __name__ == '__main__':
     with open('data/13.txt', 'r') as f:
         text = f.read()
@@ -64,21 +61,14 @@ if __name__ == '__main__':
     min = np.min(solutions)
     print(f'Solution for part 1 is: {(min - timestamp) * dict[min]}')
 
-# part 2
 
+# part 2
+# my solution is 415579909629976
 if __name__ == '__main__':
     with open('data/13.txt', 'r') as f:
         text = f.read()
     _, id_list = processing(text)
-    print(id_list)
     _, id_list_with_x = processing(text, retain_x=True)
-    print(id_list_with_x)
-    timestamp, list = loop(id_list_with_x)
-    print(timestamp, list)
-    # Here we create the pool of 5 worker processes
-    """
-    with Pool(8) as p:
-        # And now we use .map() to use the 5 workers to process our list
-        pool_returns_1, pool_return_2 = p.map(loop, id_list_with_x)
-    print(pool_returns_1, pool_return_2)
-    """
+    timestamp, _ = loop(id_list_with_x)
+    print(f'Solution for part 2 is {timestamp}')
+
