@@ -24,7 +24,7 @@ def get_times(timestamp, id_list):
 
 
 # @jit
-def loop(buses, timestamp=0):
+def loop(buses, timestamp=100000000000004):
     # id_list = [number for number in buses if number != 'x']
     # choose lowest where lowest * timestamp >= greatest element
     lowest = buses[0]
@@ -75,3 +75,10 @@ if __name__ == '__main__':
     print(id_list_with_x)
     timestamp, list = loop(id_list_with_x)
     print(timestamp, list)
+    # Here we create the pool of 5 worker processes
+    """
+    with Pool(8) as p:
+        # And now we use .map() to use the 5 workers to process our list
+        pool_returns_1, pool_return_2 = p.map(loop, id_list_with_x)
+    print(pool_returns_1, pool_return_2)
+    """
