@@ -1,6 +1,5 @@
 from collections import OrderedDict
-from itertools import permutations, combinations, product, repeat
-import numpy as np
+from itertools import product
 
 
 def part_1(text):
@@ -55,19 +54,11 @@ def part_1(text):
 
 
 def part_2(text):
-    array = np.empty(shape=55209983983)
-    total = 0
-    # here, unique addresses will be stored and only the higher index will be retained
-    addresses = OrderedDict()
-    for e, line in enumerate(text.split('\n')):
-        if line.startswith('mem'):
-            line_split = line.split(' = ')
-            addresses[line_split[0]] = e
-    # sort dict
-    sorted_addresses = {k: v for k, v in sorted(addresses.items(), key=lambda item: item[1])}
+    final_dict = OrderedDict()
 
     # loop over all lines
     for index, line in enumerate(text.split('\n')):
+        memory_list = []
         split_line = line.split(' = ')
         # init. current int. value
         counter = 0
@@ -75,10 +66,6 @@ def part_2(text):
         if line.startswith('mask'):
             mask = split_line[1]
         elif line.startswith('mem'):
-            # skip over addresses which would've been replaced later
-            if sorted_addresses[split_line[0]] != index:
-                continue
-
             raw_address = line[4:9]
             numeric_filter = filter(str.isdigit, raw_address)
             address = "".join(numeric_filter)
@@ -102,10 +89,12 @@ def part_2(text):
 
             # get int of copy_value
             bin_final = ''.join(map(str, copy_value_address))
+            # how many X are in mask
             num_X = bin_final.count('X')
             boolean_list = [1, 0]
+            # all possibilities for (1,0) in Num_X times
             write_addresses = list(product(boolean_list, repeat=num_X))
-            memory_list = []
+            # create different permutations of 'floats'
             for c, address in enumerate(write_addresses):
                 if c > 0:
                     memory_list.append(local_value_address)
@@ -118,14 +107,23 @@ def part_2(text):
                                 memory_list.append(local_value_address)
                             break
 
-            print(memory_list)
+            set_i = []
+            set = []
+            # get unique memory addresses
             for memory_address in memory_list:
                 bin_final = ''.join(map(str, memory_address))
+                set.append(bin_final)
+                set_i = {*set}
+
+            # create/overwrite values at given memory addresses
+            for memory_address in set_i:
+                bin_final = ''.join(map(str, memory_address))
+                set.append(bin_final)
                 decimal_value = int(bin_final, 2)
-                array[decimal_value] = int(split_line[1])
+                final_dict[decimal_value] = int(split_line[1])
 
-
-    return sum(array)
+    # return sum of all values
+    return sum(final_dict.values())
 
 
 if __name__ == '__main__':
