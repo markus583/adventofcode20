@@ -4,7 +4,7 @@ from itertools import product
 
 def part_1(text):
     total = 0
-    # here, unique addresses will be stored and only the higher index will be retained
+    # here, unique addresses will be stored and only the higher index will be retained.
     addresses = OrderedDict()
     for e, line in enumerate(text.split('\n')):
         if line.startswith('mem'):
