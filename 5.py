@@ -44,5 +44,5 @@ for seat in all_seats:
         seatlist_copy.remove(seat)
 
 my_id = (seatlist_copy[0][0] * 8) + seatlist_copy[0][1]
-print(seatlist_copy, my_id)
+print(my_id)
 

@@ -1,9 +1,5 @@
-import re
-
 with open('data/3.csv', 'r') as f:
     text = f.read()
-
-print(text)
 
 
 length_line = 0
@@ -19,7 +15,7 @@ for line in text.split('\n'):
     if line[position_3] == '#':
         counter_3 += 1
 
-print(counter_3)
+print('a:', counter_3)
 
 length_line = 0
 counter_1 = 0
@@ -34,7 +30,6 @@ for line in text.split('\n'):
     if line[position_1] == '#':
         counter_1 += 1
 
-print(counter_1)
 
 length_line = 0
 counter_5 = 0
@@ -49,7 +44,6 @@ for line in text.split('\n'):
     if line[position_5] == '#':
         counter_5 += 1
 
-print(counter_5)
 
 length_line = 0
 counter_7 = 0
@@ -64,7 +58,6 @@ for line in text.split('\n'):
     if line[position_7] == '#':
         counter_7 += 1
 
-print(counter_7)
 
 
 
@@ -82,6 +75,6 @@ for i, line in enumerate(text.split('\n')):
         if line[position_m1] == '#':
             counter_m1 += 1
 
-print(counter_m1)
+# print(counter_m1)
 
-print(counter_1 * counter_3 * counter_5* counter_7 * counter_m1)
+print('b:', counter_1 * counter_3 * counter_5 * counter_7 * counter_m1)

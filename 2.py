@@ -1,5 +1,3 @@
-import re
-
 with open('data/2.csv', 'r') as f:
     file = f.read()
 
@@ -15,12 +13,11 @@ for index, line in enumerate(file.split('\n')):
         literal = split[1][0]
 
         current_count = split[2].count(literal)
-        print(current_count)
 
         if upper_bound >= current_count >= lower_bound:
             counter += 1
 
-print(counter)
+print('a:', counter)
 
 
 counter = 0
@@ -37,5 +34,5 @@ for index, line in enumerate(file.split('\n')):
         if (split[2][lower_bound - 1] == literal and not split[2][upper_bound - 1] == literal) or (not split[2][lower_bound - 1] == literal and split[2][upper_bound - 1] == literal):
             counter_2 += 1
 
-print(counter_2)
+print('b:', counter_2)
 
